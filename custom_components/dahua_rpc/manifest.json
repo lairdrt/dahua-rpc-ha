@@ -8,6 +8,6 @@
   "config_flow": true,
   "integration_type": "hub",
   "requirements": [
-    "dahua-rpc-sdk @ git+https://github.com/lairdrt/dahua-rpc-sdk.git@0f7f18fac7cbced2a2f6517c1298f601ca2a5c83"
+    "dahua-rpc-sdk @ git+https://github.com/lairdrt/dahua-rpc-sdk.git@066dfaacc01f44f81139f7e17c59abf3e5bb1711"
   ]
 }
