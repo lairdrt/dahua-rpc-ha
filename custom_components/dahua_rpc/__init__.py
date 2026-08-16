@@ -7,6 +7,7 @@ from functools import partial
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers.typing import ConfigType
 
 from dahua_rpc import DahuaClient
 
@@ -33,6 +34,14 @@ class DahuaRpcRuntimeData:
 
 
 type DahuaRpcConfigEntry = ConfigEntry[DahuaRpcRuntimeData]
+
+
+async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
+    """Set up integration-wide services."""
+    from .websocket import async_register_websocket_commands
+
+    async_register_websocket_commands(hass)
+    return True
 
 
 def recorder_info(client: DahuaClient) -> RecorderInfo:
@@ -81,4 +90,3 @@ async def async_unload_entry(
         return False
     await hass.async_add_executor_job(entry.runtime_data.client.close)
     return True
-

@@ -6,6 +6,7 @@
   "issue_tracker": "https://github.com/lairdrt/dahua-rpc-ha/issues",
   "codeowners": ["@lairdrt"],
   "config_flow": true,
+  "dependencies": ["websocket_api"],
   "integration_type": "hub",
   "requirements": [
     "dahua-rpc-sdk @ git+https://github.com/lairdrt/dahua-rpc-sdk.git@066dfaacc01f44f81139f7e17c59abf3e5bb1711"

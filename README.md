@@ -22,6 +22,41 @@ published as entity state or attributes.
 The runtime uses RPC2 for identity and camera metadata and RTSP for live video.
 It introduces no CGI and does not relay, decode, or transcode video in Python.
 
+## Phase 2A historical metadata API
+
+Phase 2A adds two authenticated, admin-only Home Assistant WebSocket commands:
+
+- `dahua_rpc/recordings`
+- `dahua_rpc/snapshots`
+
+Both require `entity_id`, `start`, and `end`. Times are ISO 8601 values with
+explicit timezone offsets, `end` must be later than `start`, and the maximum
+query window is 24 hours. Results are ordered oldest to newest.
+
+The backend path is:
+
+```text
+HA frontend
+  -> authenticated HA WebSocket command
+  -> dahua-rpc-ha
+  -> Home Assistant executor
+  -> shared DahuaClient from ConfigEntry.runtime_data
+  -> media.recordings() / media.snapshots()
+  -> recorder RPC media index
+```
+
+Live video remains `HA Camera Stream -> RTSP`. The standard current-frame
+Snapshot action remains `HA Stream -> stream-derived still`. Historical
+snapshot metadata uses `WebSocket -> SDK media.snapshots()`, while historical
+recording metadata uses `WebSocket -> SDK media.recordings()`.
+
+The new commands return metadata only: no DAV, JPEG, base64, RTSP media, or
+other media bytes. `file_path` is an opaque recorder-internal reference, not a
+frontend-fetchable path. Each result has a deterministic SHA-256 `media_id`
+derived from config-entry and immutable recorder metadata. A later retrieval
+phase can resolve it by bounded re-query around the returned timestamp; Phase
+2A intentionally has no persistent media-ID registry or playback API.
+
 ## Development setup
 
 Create/activate the Python environment used for Home Assistant and tests, then
@@ -32,9 +67,8 @@ pip install -e C:\Users\laird\Documents\Projects\dahua-rpc-sdk
 pip install -e ".[test]"
 ```
 
-The SDK currently is not listed in `manifest.json` requirements because it is
-not published as an installable package for Home Assistant. The actual HA
-runtime must independently install or otherwise provide `dahua_rpc`.
+The integration manifest pins the validated SDK Git commit so Home Assistant
+installs the exact supported `dahua_rpc` version.
 
 ## Development deployment
 
