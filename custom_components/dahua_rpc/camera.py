@@ -69,6 +69,7 @@ class DahuaRpcCamera(HaCamera):
 
     _attr_has_entity_name = True
     _attr_supported_features = CameraEntityFeature.STREAM
+    use_stream_for_stills = True
 
     def __init__(
         self,
@@ -113,4 +114,3 @@ class DahuaRpcCamera(HaCamera):
             f"rtsp://{username}:{password}@{host}:{RTSP_PORT}"
             f"/cam/realmonitor?channel={self._channel}&subtype={self._subtype}"
         )
-

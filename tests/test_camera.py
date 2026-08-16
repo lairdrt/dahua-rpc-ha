@@ -87,6 +87,7 @@ async def test_entity_identity_device_and_stream_feature():
     assert entity.unique_id == "SERIAL-1_channel_1"
     assert entity.name == "Front 1"
     assert entity.available
+    assert entity.use_stream_for_stills is True
     assert entity.supported_features == CameraEntityFeature.STREAM
     assert entity.device_info["identifiers"] == {(DOMAIN, "SERIAL-1")}
     assert entity.device_info["model"] == "NVR"
@@ -118,6 +119,7 @@ def test_runtime_contains_no_forbidden_transport_references():
         "mjpg/video.cgi",
         "magicBox.cgi",
         "RPC_Loadfile",
+        "async_camera_image",
         "_Connection",
         "LiveStream.receive",
     )
@@ -127,4 +129,3 @@ def test_runtime_contains_no_forbidden_transport_references():
         if path.is_file()
     )
     assert not any(value in runtime_text for value in forbidden)
-

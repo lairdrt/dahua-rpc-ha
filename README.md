@@ -36,6 +36,20 @@ The SDK currently is not listed in `manifest.json` requirements because it is
 not published as an installable package for Home Assistant. The actual HA
 runtime must independently install or otherwise provide `dahua_rpc`.
 
+## Development deployment
+
+With the Samba share installed and enabled on HAOS, deploy the integration from
+Windows PowerShell with:
+
+```powershell
+.\deploy-ha.ps1 -Host <HA-IP>
+```
+
+The script mirrors only `custom_components/dahua_rpc` to the matching folder
+under the HAOS `config` share. It excludes `__pycache__` directories and Python
+bytecode files. Restart Home Assistant or reload the integration manually after
+deployment.
+
 ## Manual installation
 
 1. Copy `custom_components/dahua_rpc` into
@@ -56,4 +70,3 @@ runtime must independently install or otherwise provide `dahua_rpc`.
 
 Recording/event browsing, stored snapshots, recorded RTSP playback, timeline
 UI, and a custom dashboard card are explicitly outside Phase 1.
-
