@@ -1,0 +1,29 @@
+{
+  "title": "Dahua RPC",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to a Dahua-compatible recorder",
+        "description": "Enter the recorder credentials. Camera video is sent directly to Home Assistant over RTSP.",
+        "data": {
+          "host": "Host",
+          "username": "Username",
+          "password": "Password"
+        },
+        "data_description": {
+          "host": "Recorder hostname or IP address",
+          "username": "Recorder account username",
+          "password": "Recorder account password"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Authentication failed. Check the username and password.",
+      "cannot_connect": "Unable to connect to the recorder.",
+      "unknown": "Unexpected error while validating the recorder."
+    },
+    "abort": {
+      "already_configured": "This recorder is already configured."
+    }
+  }
+}

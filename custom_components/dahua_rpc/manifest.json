@@ -1,0 +1,13 @@
+{
+  "domain": "dahua_rpc",
+  "name": "Dahua RPC",
+  "version": "0.1.0",
+  "documentation": "https://github.com/lairdrt/dahua-rpc-ha",
+  "issue_tracker": "https://github.com/lairdrt/dahua-rpc-ha/issues",
+  "codeowners": ["@lairdrt"],
+  "config_flow": true,
+  "integration_type": "hub",
+  "requirements": [
+    "dahua-rpc-sdk @ git+https://github.com/lairdrt/dahua-rpc-sdk.git@0f7f18fac7cbced2a2f6517c1298f601ca2a5c83"
+  ]
+}
